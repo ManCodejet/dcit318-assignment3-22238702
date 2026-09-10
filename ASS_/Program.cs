@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-// --------------------------------------------------
 // 1. TRANSACTION RECORD
-// --------------------------------------------------
+
 
 public record Transaction(
     int Id,
@@ -13,9 +12,7 @@ public record Transaction(
 );
 
 
-// --------------------------------------------------
 // 2. TRANSACTION PROCESSOR INTERFACE
-// --------------------------------------------------
 
 public interface ITransactionProcessor
 {
@@ -23,9 +20,8 @@ public interface ITransactionProcessor
 }
 
 
-// --------------------------------------------------
+
 // 3. MOBILE MONEY PROCESSOR
-// --------------------------------------------------
 
 public class MobileMoneyProcessor : ITransactionProcessor
 {
@@ -53,9 +49,9 @@ public class BankTransferProcessor : ITransactionProcessor
 }
 
 
-// --------------------------------------------------
+
 // 5. CRYPTO WALLET PROCESSOR
-// --------------------------------------------------
+
 
 public class CryptoWalletProcessor : ITransactionProcessor
 {
@@ -68,9 +64,7 @@ public class CryptoWalletProcessor : ITransactionProcessor
 }
 
 
-// --------------------------------------------------
 // 6. GENERAL ACCOUNT CLASS
-// --------------------------------------------------
 
 public class Account
 {
@@ -95,9 +89,8 @@ public class Account
 }
 
 
-// --------------------------------------------------
+
 // 7. SAVINGS ACCOUNT CLASS
-// --------------------------------------------------
 
 public sealed class SavingsAccount : Account
 {
@@ -123,10 +116,8 @@ public sealed class SavingsAccount : Account
     }
 }
 
-
-// --------------------------------------------------
 // 8. FINANCE APP CLASS
-// --------------------------------------------------
+
 
 public class FinanceApp
 {
@@ -191,9 +182,7 @@ public class FinanceApp
 }
 
 
-// --------------------------------------------------
 // 9. MAIN APPLICATION
-// --------------------------------------------------
 
 public class Program
 {

@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="../Healthcare App/Healthcare App.csproj" Id="69cf9ec6-b293-40ec-804a-b177d95a341f" />
+  <Project Path="../Warehouse inventory management/Warehouse inventory management.csproj" Id="2eb4d316-86fc-4f09-861b-b8c2f78cf52b" />
   <Project Path="ASS_.csproj" />
 </Solution>
