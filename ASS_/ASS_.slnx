@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="../Grading System/Grading System.csproj" Id="884a5de6-e8ba-47cc-a7c0-5fd20e540e31" />
   <Project Path="../Healthcare App/Healthcare App.csproj" Id="69cf9ec6-b293-40ec-804a-b177d95a341f" />
   <Project Path="../Warehouse inventory management/Warehouse inventory management.csproj" Id="2eb4d316-86fc-4f09-861b-b8c2f78cf52b" />
   <Project Path="ASS_.csproj" />
