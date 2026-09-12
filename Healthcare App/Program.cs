@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-// ===============================================
 // 1. GENERIC REPOSITORY
-// ===============================================
 
 public class Repository<T>
 {
@@ -61,9 +59,8 @@ public class Patient
 }
 
 
-// ===============================================
+
 // 3. PRESCRIPTION CLASS
-// ===============================================
 
 public class Prescription
 {
@@ -86,9 +83,8 @@ public class Prescription
 }
 
 
-// ===============================================
+
 // 4. HEALTH SYSTEM APPLICATION
-// ===============================================
 
 public class HealthSystemApp
 {
@@ -98,11 +94,10 @@ public class HealthSystemApp
     private Dictionary<int, List<Prescription>> _prescriptionMap;
 
 
-    // ===========================================
-    // CONSTRUCTOR
-    // ===========================================
 
-    public HealthSystemApp()
+    // CONSTRUCTOR
+
+       public HealthSystemApp()
     {
         _patientRepo = new Repository<Patient>();
         _prescriptionRepo = new Repository<Prescription>();
@@ -110,11 +105,9 @@ public class HealthSystemApp
         _prescriptionMap =
             new Dictionary<int, List<Prescription>>();
     }
-
-
-    // ===========================================
+ 
     // 5. SEED DATA
-    // ===========================================
+ 
 
     public void SeedData()
     {
@@ -126,7 +119,7 @@ public class HealthSystemApp
             new Patient(2, "Ama Boateng", 28, "Female");
 
         Patient patient3 =
-            new Patient(3, "Kofi Asare", 42, "Male");
+            new Patient(3, "Justin Cobbina", 42, "Male");
 
 
         // Add patients to repository
@@ -181,9 +174,9 @@ public class HealthSystemApp
     }
 
 
-    // ===========================================
+ 
     // 6. BUILD PRESCRIPTION MAP
-    // ===========================================
+ 
 
     public void BuildPrescriptionMap()
     {
@@ -202,9 +195,7 @@ public class HealthSystemApp
     }
 
 
-    // ===========================================
     // 7. PRINT ALL PATIENTS
-    // ===========================================
 
     public void PrintAllPatients()
     {
@@ -222,9 +213,9 @@ public class HealthSystemApp
     }
 
 
-    // ===========================================
+ 
     // 8. PRINT PRESCRIPTIONS FOR A PATIENT
-    // ===========================================
+ 
 
     public void PrintPrescriptionsForPatient(int patientId)
     {
@@ -255,9 +246,9 @@ public class HealthSystemApp
 }
 
 
-// ===============================================
+
 // 9. MAIN PROGRAM
-// ===============================================
+
 
 public class Program
 {
