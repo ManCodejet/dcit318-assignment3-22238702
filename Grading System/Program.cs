@@ -2,28 +2,31 @@
 using System.Collections.Generic;
 using System.IO;
 
-// Student Class
+// ==========================================
+// STUDENT CLASS
+// ==========================================
 public class Student
 {
     public int Id { get; set; }
     public string FullName { get; set; }
     public int Score { get; set; }
 
+    // Method to determine the student's grade
     public string GetGrade()
     {
         if (Score >= 80 && Score <= 100)
         {
             return "A";
         }
-        else if (Score >= 70 && Score <= 79)
+        else if (Score >= 70)
         {
             return "B";
         }
-        else if (Score >= 60 && Score <= 69)
+        else if (Score >= 60)
         {
             return "C";
         }
-        else if (Score >= 50 && Score <= 59)
+        else if (Score >= 50)
         {
             return "D";
         }
@@ -34,7 +37,9 @@ public class Student
     }
 }
 
-// Custom Exception 1
+// ==========================================
+// CUSTOM EXCEPTION FOR INVALID SCORE
+// ==========================================
 public class InvalidScoreFormatException : Exception
 {
     public InvalidScoreFormatException(string message)
@@ -43,7 +48,9 @@ public class InvalidScoreFormatException : Exception
     }
 }
 
-// Custom Exception 2
+// ==========================================
+// CUSTOM EXCEPTION FOR MISSING DATA
+// ==========================================
 public class MissingFieldException : Exception
 {
     public MissingFieldException(string message)
@@ -52,10 +59,14 @@ public class MissingFieldException : Exception
     }
 }
 
-// Student Result Processor
+// ==========================================
+// STUDENT RESULT PROCESSOR CLASS
+// ==========================================
 public class StudentResultProcessor
 {
-    // Read students from the input file
+    // ==========================================
+    // READ STUDENTS FROM FILE
+    // ==========================================
     public List<Student> ReadStudentsFromFile(string inputFilePath)
     {
         List<Student> students = new List<Student>();
@@ -63,35 +74,68 @@ public class StudentResultProcessor
         using (StreamReader reader = new StreamReader(inputFilePath))
         {
             string line;
+            int lineNumber = 0;
 
             while ((line = reader.ReadLine()) != null)
             {
+                lineNumber++;
+
+                // Ignore empty lines
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+
+                // Split the line using comma
                 string[] fields = line.Split(',');
 
-                // Check if required fields are missing
-                if (fields.Length < 3)
+                // Check if there are exactly three fields
+                if (fields.Length != 3)
                 {
                     throw new MissingFieldException(
-                        "Student record is incomplete: " + line);
+                        $"Line {lineNumber}: A student record must contain ID, Full Name and Score.");
                 }
 
-                int id = int.Parse(fields[0]);
-                string fullName = fields[1];
+                // Remove unnecessary spaces
+                string idText = fields[0].Trim();
+                string fullName = fields[1].Trim();
+                string scoreText = fields[2].Trim();
 
-                int score;
-
-                // Try to convert score to integer
-                try
+                // Check for missing fields
+                if (string.IsNullOrWhiteSpace(idText) ||
+                    string.IsNullOrWhiteSpace(fullName) ||
+                    string.IsNullOrWhiteSpace(scoreText))
                 {
-                    score = int.Parse(fields[2]);
+                    throw new MissingFieldException(
+                        $"Line {lineNumber}: One or more required fields are missing.");
                 }
-                catch (FormatException)
+
+                // Convert ID to integer
+                int id;
+
+                if (!int.TryParse(idText, out id))
                 {
                     throw new InvalidScoreFormatException(
-                        "Invalid score format for student: " + fullName);
+                        $"Line {lineNumber}: Student ID must be a number.");
                 }
 
-                // Create Student object
+                // Convert score to integer
+                int score;
+
+                if (!int.TryParse(scoreText, out score))
+                {
+                    throw new InvalidScoreFormatException(
+                        $"Line {lineNumber}: Invalid score format for {fullName}.");
+                }
+
+                // Check that score is between 0 and 100
+                if (score < 0 || score > 100)
+                {
+                    throw new InvalidScoreFormatException(
+                        $"Line {lineNumber}: Score for {fullName} must be between 0 and 100.");
+                }
+
+                // Create a Student object
                 Student student = new Student
                 {
                     Id = id,
@@ -99,7 +143,7 @@ public class StudentResultProcessor
                     Score = score
                 };
 
-                // Add student to list
+                // Add student to the list
                 students.Add(student);
             }
         }
@@ -107,7 +151,9 @@ public class StudentResultProcessor
         return students;
     }
 
-    // Write report to output file
+    // ==========================================
+    // WRITE REPORT TO FILE
+    // ==========================================
     public void WriteReportToFile(
         List<Student> students,
         string outputFilePath)
@@ -124,7 +170,9 @@ public class StudentResultProcessor
     }
 }
 
-// Main Program
+// ==========================================
+// MAIN PROGRAM
+// ==========================================
 class Program
 {
     static void Main(string[] args)
@@ -134,36 +182,38 @@ class Program
 
         try
         {
+            // Create StudentResultProcessor object
             StudentResultProcessor processor =
                 new StudentResultProcessor();
 
+            // Read students from the input file
             List<Student> students =
                 processor.ReadStudentsFromFile(inputFilePath);
 
+            // Write the results to the output file
             processor.WriteReportToFile(
                 students,
                 outputFilePath);
 
-            Console.WriteLine(
-                "Student results processed successfully.");
-
-            Console.WriteLine(
-                "Report saved to: " + outputFilePath);
+            // Display success message
+            Console.WriteLine("Student results processed successfully.");
+            Console.WriteLine("Number of students: " + students.Count);
+            Console.WriteLine("Report saved to: " + outputFilePath);
         }
         catch (FileNotFoundException)
         {
             Console.WriteLine(
-                "Error: The input file was not found.");
+                "Error: The input file 'students.txt' was not found.");
         }
         catch (InvalidScoreFormatException ex)
         {
             Console.WriteLine(
-                "Score Error: " + ex.Message);
+                "Score Format Error: " + ex.Message);
         }
         catch (MissingFieldException ex)
         {
             Console.WriteLine(
-                "Missing Data Error: " + ex.Message);
+                "Missing Field Error: " + ex.Message);
         }
         catch (Exception ex)
         {
